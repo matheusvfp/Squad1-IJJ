@@ -14,4 +14,6 @@
 11. Aula 6
     -
 13. Aula 7
-    -
+    - Criando uma Função
+    - Criando função das Olimpiadas (Separando os alunos pela matrícula)
+    - 

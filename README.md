@@ -16,4 +16,6 @@
 13. Aula 7
     - Criando uma Função
     - Criando função das Olimpiadas (Separando os alunos pela matrícula)
-    - 
+    - Parametros de uma função (Argumentos para executar função)
+    - Props (Mensagem dinâmica)
+    - Atividade para Casa (Case Loja Joga Junto)

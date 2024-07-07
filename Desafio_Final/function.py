@@ -66,7 +66,6 @@ def gerar_dataframe(retorno: Union[Dict[str, str], None]) -> pd.DataFrame:
     
     try:
         df = pd.DataFrame([retorno])
-        print(df)
         return df
     except Exception as err:
         print('Erro ao criar DataFrame:', err)

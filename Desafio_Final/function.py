@@ -1,12 +1,16 @@
-import requests
+import aiohttp
+import sys
 from faker import Faker
 from typing import Dict, Union
 import pandas as pd
 
-URL = 'https://desafiopython.jogajuntoinstituto.org/api/users/'
-URL_LOGIN = 'http://desafiopython.jogajuntoinstituto.org/api/users/login/'
 
-def criar_dados() -> Dict[str,str]:
+URL = 'https://desafiopython.jogajuntoinstituto.org/api/users/'
+URL_LOGIN = 'https://desafiopython.jogajuntoinstituto.org/api/users/login/'
+
+
+
+def criar_dados() -> Dict[str, str]:
     faker = Faker('pt_BR')
     usuario = {
         "username": faker.user_name(),
@@ -19,34 +23,51 @@ def criar_dados() -> Dict[str,str]:
     return usuario
 
 
-def criar_usuario() -> Union[Dict[str, str], None]:
+
+async def criar_usuario(session: aiohttp.ClientSession) -> Dict[str, str]:
     usuario = criar_dados()
-    response = requests.post(URL, json=usuario)
+    try:
+        async with session.post(URL, json=usuario) as response:
+            if response.status == 201:
+                print('Usuário criado com sucesso!')
+                return usuario
+            else:
+                print('Erro ao criar usuário:', await response.text())
+                raise RuntimeError('Erro ao criar usuário')
+    except Exception as err:
+        print('Erro inesperado:', err)
+        raise RuntimeError('Erro inesperado. Encerrando o programa.')
     
-    if response.status_code == 201: 
-        print('Usuário criado com sucesso!')
-        return usuario  
-    else:
-        print('Erro ao criar usuário:', response.text)
-        return None
     
-def fazer_login(usuario: Dict[str,str]) -> Union[Dict, None]:
+
+async def fazer_login(session: aiohttp.ClientSession, usuario: Dict[str, str]) -> Dict:
     dados_login = {
         "email": usuario['email'],
         "password": usuario['password']
     }
 
-    response = requests.post(URL_LOGIN, json=dados_login)
-
-    if response.status_code == 200:  
-        print('Login bem-sucedido!')
-        token_acesso = response.json()
-        return token_acesso
-    else:
-        print('Erro no login:', response.text)
-        return None
+    try:
+        async with session.post(URL_LOGIN, json=dados_login) as response:
+            if response.status == 200:
+                print('Login bem-sucedido!')
+                return await response.json()
+            else:
+                print('Erro no login:', await response.text())
+                raise RuntimeError('Falha no login')
+    except Exception as err:
+        print('Erro inesperado:', err)
+        raise RuntimeError('Erro inesperado. Encerrando o programa.')
     
- 
-def gerar_dataframe(retorno: Dict[str, str]) -> pd.DataFrame:
-    df = pd.DataFrame.from_dict(retorno, orient='index')
-    return df
+    
+
+def gerar_dataframe(retorno: Union[Dict[str, str], None]) -> pd.DataFrame:
+    if retorno is None:
+        raise ValueError('Erro: Dados de retorno são None')
+    
+    try:
+        df = pd.DataFrame([retorno])
+        print(df)
+        return df
+    except Exception as err:
+        print('Erro ao criar DataFrame:', err)
+        raise RuntimeError('Erro ao criar DataFrame')

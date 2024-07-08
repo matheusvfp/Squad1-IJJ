@@ -1,6 +1,7 @@
 import functions as func
 import asyncio
 import aiohttp
+import sys
 
 async def main():
     async with aiohttp.ClientSession() as session:

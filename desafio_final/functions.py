@@ -45,7 +45,7 @@ async def fazer_login(session: aiohttp.ClientSession, usuario: Dict[str, str]) -
             if response.status == 200:
                 print('Login bem-sucedido!')
                 token_acesso = await response.json()
-                await salvar_json('token_acesso.json', token_acesso)
+                await salvar_json('login_resposta.json', dados_login)
                 return token_acesso
             else:
                 print('Erro no login:', await response.text())

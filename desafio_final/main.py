@@ -17,6 +17,8 @@ async def main():
         if df is None:
             sys.exit('Falha na criação do DataFrame. Encerrando o programa.')
 
+        func.salvar_em_csv(df, 'json.csv')
+
         print(df)
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

@@ -73,5 +73,7 @@ def gerar_dataframe(retorno: Union[Dict[str, str], None]) -> Union[pd.DataFrame,
         print('Erro ao criar DataFrame:', err)
         return None
 
+def salvar_em_csv(df: pd.DataFrame, nome_do_arquivo: str) -> None:
+    df.to_csv(nome_do_arquivo, index=False)
 
 

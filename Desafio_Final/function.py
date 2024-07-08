@@ -33,10 +33,10 @@ async def criar_usuario(session: aiohttp.ClientSession) -> Dict[str, str]:
                 return usuario
             else:
                 print('Erro ao criar usuário:', await response.text())
-                raise RuntimeError('Erro ao criar usuário')
+                sys.exit(1)
     except Exception as err:
         print('Erro inesperado:', err)
-        raise RuntimeError('Erro inesperado. Encerrando o programa.')
+        sys.exit(1)
     
     
 
@@ -53,20 +53,24 @@ async def fazer_login(session: aiohttp.ClientSession, usuario: Dict[str, str]) -
                 return await response.json()
             else:
                 print('Erro no login:', await response.text())
-                raise RuntimeError('Falha no login')
+                sys.exit(1)
     except Exception as err:
         print('Erro inesperado:', err)
-        raise RuntimeError('Erro inesperado. Encerrando o programa.')
+        sys.exit(1)
     
     
 
 def gerar_dataframe(retorno: Union[Dict[str, str], None]) -> pd.DataFrame:
     if retorno is None:
-        raise ValueError('Erro: Dados de retorno são None')
+        sys.exit('Erro: Dados de retorno são None')
     
     try:
         df = pd.DataFrame([retorno])
         return df
     except Exception as err:
         print('Erro ao criar DataFrame:', err)
-        raise RuntimeError('Erro ao criar DataFrame')
+        sys.exit(1)
+
+
+def salvar_em_csv(df: pd.DataFrame, nome_do_arquivo: str) -> None:
+    df.to_csv(nome_do_arquivo, index=False)

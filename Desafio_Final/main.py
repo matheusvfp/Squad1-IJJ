@@ -9,6 +9,8 @@ async def main():
         token_acesso = await func.fazer_login(session, usuario_criado)
         
         df = func.gerar_dataframe(token_acesso)
+        
+        func.salvar_em_csv(df, 'json.csv')
 
         print(df)
 

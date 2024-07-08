@@ -1,9 +1,10 @@
-import aiohttp
 import sys
 from faker import Faker
 from typing import Dict, Union
 import pandas as pd
 import json
+import requests
+
 
 URL = 'https://desafiopython.jogajuntoinstituto.org/api/users/'
 URL_LOGIN = 'https://desafiopython.jogajuntoinstituto.org/api/users/login/'
@@ -24,50 +25,47 @@ def criar_dados() -> Dict[str, str]:
 
 
 
-async def criar_usuario(session: aiohttp.ClientSession) -> Dict[str, str]:
+def criar_usuario(session: requests.Session) -> Dict[str, str]:
     usuario = criar_dados()
     try:
-        async with session.post(URL, json=usuario) as response:
-            if response.status == 201:
-                print('Usuário criado com sucesso!')
-                await salvar_json('usuario_criado.json', usuario)
-                return usuario
-            else:
-                print('Erro ao criar usuário:', await response.text())
-                sys.exit(1)
+        response = session.post(URL, json=usuario)
+        if response.status_code == 201:
+            print('Usuário criado com sucesso!')
+            salvar_json('usuario_criado.json', usuario)
+            return usuario
+        else:
+            print('Erro ao criar usuário:', response.text)
+            sys.exit(1)
     except Exception as err:
         print('Erro inesperado:', err)
         sys.exit(1)
-    
-    
 
-async def fazer_login(session: aiohttp.ClientSession, usuario: Dict[str, str]) -> Dict:
+
+def fazer_login(session: requests.Session, usuario: Dict[str, str]) -> Dict:
     dados_login = {
         "email": usuario['email'],
         "password": usuario['password']
     }
 
     try:
-        async with session.post(URL_LOGIN, json=dados_login) as response:
-            if response.status == 200:
-                print('Login bem-sucedido!')
-                token_acesso = await response.json()
-                await salvar_json('token_acesso.json', token_acesso)
-                return token_acesso
-            else:
-                print('Erro no login:', await response.text())
-                sys.exit(1)
+        response = session.post(URL_LOGIN, json=dados_login)
+        if response.status_code == 200:
+            print('Login bem-sucedido!')
+            token_acesso = response.json()
+            salvar_json('token_acesso.json', token_acesso)
+            return token_acesso
+        else:
+            print('Erro no login:', response.text)
+            sys.exit(1)
     except Exception as err:
         print('Erro inesperado:', err)
         sys.exit(1)
-    
-    
-    
-async def salvar_json(nome_arquivo: str, dados: Dict) -> None:
+
+
+def salvar_json(nome_arquivo: str, dados: Dict) -> None:
     try:
-      save_file = open(nome_arquivo, "w")  
-      json.dump(dados, save_file, indent = 6)  
-      save_file.close()  
+        with open(nome_arquivo, "w") as save_file:
+            json.dump(dados, save_file, indent=6)
     except Exception as err:
         print(f'Erro ao salvar JSON em {nome_arquivo}:', err)
         

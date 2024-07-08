@@ -1,16 +1,13 @@
 import function as func
-import asyncio
-import aiohttp
+import requests
 
-async def main():
-    async with aiohttp.ClientSession() as session:
-        usuario_criado = await func.criar_usuario(session)
-        
-        token_acesso = await func.fazer_login(session, usuario_criado)
-        
+def main():
+    with requests.Session() as session:
+        usuario_criado = func.criar_usuario(session)
+        token_acesso = func.fazer_login(session, usuario_criado)
         func.gerar_dataframe(token_acesso)
-        
-        
 
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-asyncio.run(main())
+
+
+if __name__ == "__main__":
+    main()

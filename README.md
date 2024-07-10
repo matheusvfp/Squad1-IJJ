@@ -1,9 +1,12 @@
-# Squad1-IJJ
+# QA Avengers
 
 ## Visão Geral
 Este repositório contém projetos desenvolvidos pelo Squad 1 no cruso de QA módulo avançado. O objetivo principal é praticar entregando as tarefas solicitadas, utilizando Python e boas práticas de desenvolvimento.
 
-![image](https://github.com/matheusvfp/Squad1-IJJ/assets/65199677/3782a146-deb0-43eb-847d-6099ba7f506d)
+<img src="https://github.com/matheusvfp/Squad1-IJJ/assets/65199677/3782a146-deb0-43eb-847d-6099ba7f506d" alt="Image 1" style="width: 213px; height: auto;">
+<img src="https://github.com/matheusvfp/Squad1-IJJ/assets/65199677/1770a178-1d2a-434a-b12a-3ea2b3079e22" alt="Image 2" style="width: 300px; height: auto;">
+
+
 
 ## Começando
 ### Pré-requisitos

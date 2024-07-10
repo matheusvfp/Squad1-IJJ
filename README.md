@@ -1,1 +1,34 @@
-## Squad1-IJJ
+# Squad1-IJJ
+
+## Visão Geral
+Este repositório contém projetos desenvolvidos pelo Squad 1 no cruso de QA módulo avançado. O objetivo principal é praticar entregando as tarefas solicitadas, utilizando Python e boas práticas de desenvolvimento.
+
+![image](https://github.com/matheusvfp/Squad1-IJJ/assets/65199677/3782a146-deb0-43eb-847d-6099ba7f506d)
+
+## Começando
+### Pré-requisitos
+- [Python](https://www.python.org/) (v3.8 ou superior)
+- [pip](https://pip.pypa.io/en/stable/)
+
+### Instalação
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/matheusvfp/Squad1-IJJ.git
+    ```
+2. Navegue até o diretório do projeto:
+    ```bash
+    cd Squad1-IJJ
+    ```
+3. Instale as dependências:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Uso
+Para executar o projeto, utilize o comando:
+```bash
+python src/nome_do_script.py
+```
+
+## Licença
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.

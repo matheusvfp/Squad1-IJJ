@@ -67,10 +67,13 @@ ___
 - Atividade: Criar um ambiente virtual no Python
 - Atividade: Baixar biblioteca requests e enviar requisição para o ViaCEPAtividade para verificar teste grátis para o nordeste.
 - Desafio: Criar uma lista de dados e, usando a biblioteca OS, interagir com o seu sistema operacional. Além disso, também criará uma nova pasta para salvar o arquivo de texto txt
+
+
 ---
 8. Aula 8
 ___
 - Biblioteca Pandas e Faker
+-
 - 
 
 ## Contato
